@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { auth, GoogleAuthProvider } from '../firebase/firebaseConfig';
+import { auth, provider } from '../firebase/firebaseConfig';
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { motion, AnimatePresence } from 'framer-motion';
 
 function LoginModal({ isOpen, setIsOpen }) {
@@ -13,7 +14,7 @@ function LoginModal({ isOpen, setIsOpen }) {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      await auth.signInWithEmailAndPassword(loginEmail, loginPassword);
+      await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
       setIsOpen(false);
     } catch (err) {
       setError({ ...error, login: err.message });
@@ -27,7 +28,7 @@ function LoginModal({ isOpen, setIsOpen }) {
       return;
     }
     try {
-      await auth.createUserWithEmailAndPassword(registerEmail, registerPassword);
+      await createUserWithEmailAndPassword(auth, registerEmail, registerPassword);
       setIsOpen(false);
     } catch (err) {
       setError({ ...error, register: err.message });
@@ -36,7 +37,7 @@ function LoginModal({ isOpen, setIsOpen }) {
 
   const handleGoogleLogin = async () => {
     try {
-      await auth.signInWithPopup(new GoogleAuthProvider());
+      await signInWithPopup(auth, provider);
       setIsOpen(false);
     } catch (err) {
       setError({ ...error, login: err.message });
