@@ -1,22 +1,19 @@
-// firebaseConfig.js
-import { initializeApp } from "firebase/app";
-import { getAuth, GoogleAuthProvider } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAV8x3oA2D3UO5niAmwo88U9Of3hj7VNaQ",
-  authDomain: "bigfoot-esports.firebaseapp.com",
-  projectId: "bigfoot-esports",
-  storageBucket: "bigfoot-esports.firebasestorage.app",
-  messagingSenderId: "868767435883",
-  appId: "1:868767435883:web:f90f8d3d5bfd66e933752e",
-  measurementId: "G-S26ZFJRD3M"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
-// Inicializa o app Firebase
-const app = initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig);
 
-// Exporta serviços
-export const auth = getAuth(app);
-export const provider = new GoogleAuthProvider();
-export const firestore = getFirestore(app);
+export const auth = firebase.auth();
+export const firestore = firebase.firestore();
+
+export default firebase;

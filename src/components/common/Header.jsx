@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { auth } from '../firebase/firebaseConfig';
+import { auth } from '../../firebase/firebaseConfig';
 
 function Header({ user, setModalOpen }) {
   const handleLogout = async () => {

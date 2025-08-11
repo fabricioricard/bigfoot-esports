@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { auth, provider } from '../firebase/firebaseConfig';
+import { auth, provider } from '../../firebase/firebaseConfig';
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { motion, AnimatePresence } from 'framer-motion';
 
