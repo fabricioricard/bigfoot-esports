@@ -1,7 +1,10 @@
 import ReactGA from 'react-ga';
 
 export const initializeAnalytics = () => {
-  ReactGA.initialize(import.meta.env.VITE_GA_TRACKING_ID);
+  const trackingId = import.meta.env.VITE_GA_TRACKING_ID;
+  if (trackingId) {
+    ReactGA.initialize(trackingId);
+  }
 };
 
 export const trackPageView = (page) => {
