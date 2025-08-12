@@ -1,24 +1,25 @@
 // src/firebase/firebaseConfig.js
-import { initializeApp } from "firebase/app";
-import { getAuth, GoogleAuthProvider } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
+import { initializeApp } from 'firebase/app';
+import { getAuth } from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore';
+import { getStorage } from 'firebase/storage';
 
-// Configurações do Firebase usando variáveis de ambiente
+// Configuração do Firebase (substitua pelos seus valores)
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY || "sua-api-key-aqui",
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN || "bigfoot-esports.firebaseapp.com",
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID || "bigfoot-esports",
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET || "bigfoot-esports.appspot.com",
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID || "123456789",
+  appId: process.env.REACT_APP_FIREBASE_APP_ID || "1:123456789:web:abc123def456"
 };
 
-// Inicializa o Firebase
+// Inicializar Firebase
 const app = initializeApp(firebaseConfig);
 
-// Serviços do Firebase
+// Inicializar serviços do Firebase
 export const auth = getAuth(app);
-export const firestore = getFirestore(app);
+export const db = getFirestore(app);
+export const storage = getStorage(app);
 
-// Provider para login com Google
-export const provider = new GoogleAuthProvider();
+export default app;
