@@ -8,14 +8,14 @@ export const NewsProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [userPoints, setUserPoints] = useState(0);
+  const [selectedNews, setSelectedNews] = useState(null); // Added for selected news
+  const [showAdModal, setShowAdModal] = useState(false); // Added for ad modal visibility
 
   // Função para buscar notícias
   const fetchNews = async () => {
     setLoading(true);
     setError(null);
     try {
-      // Aqui você pode implementar a lógica para buscar notícias
-      // Por exemplo, de uma API ou dados mockados
       const mockNews = [
         {
           id: 1,
@@ -63,6 +63,16 @@ export const NewsProvider = ({ children }) => {
     );
   };
 
+  // Função para selecionar notícia
+  const selectNews = (newsItem) => {
+    setSelectedNews(newsItem);
+  };
+
+  // Função para controlar visibilidade do AdModal
+  const toggleAdModal = (show) => {
+    setShowAdModal(show);
+  };
+
   const value = {
     news,
     setNews,
@@ -73,7 +83,11 @@ export const NewsProvider = ({ children }) => {
     fetchNews,
     addPoints,
     resetPoints,
-    markAsRead
+    markAsRead,
+    selectedNews,
+    setSelectedNews,
+    showAdModal,
+    toggleAdModal
   };
 
   return (
