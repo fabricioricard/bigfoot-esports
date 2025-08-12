@@ -5,10 +5,10 @@ import { onAuthStateChanged } from 'firebase/auth';
 
 const NewsContext = createContext();
 
-export const useNews = () => {
+export const useNewsContext = () => {  // mudou de useNews para useNewsContext
   const context = useContext(NewsContext);
   if (!context) {
-    throw new Error('useNews deve ser usado dentro de um NewsProvider');
+    throw new Error('useNewsContext deve ser usado dentro de um NewsProvider');
   }
   return context;
 };
@@ -25,7 +25,6 @@ export const NewsProvider = ({ children }) => {
       setUser(user);
       setLoading(false);
       
-      // Se o usuário estiver logado, carrega seus pontos
       if (user) {
         loadUserPoints(user.uid);
       } else {
@@ -38,8 +37,6 @@ export const NewsProvider = ({ children }) => {
 
   const loadUserPoints = async (userId) => {
     try {
-      // Aqui você pode implementar a lógica para carregar pontos do Firebase
-      // Por enquanto, vamos usar um valor mock
       setUserPoints(150);
     } catch (error) {
       console.error('Erro ao carregar pontos:', error);
@@ -63,7 +60,6 @@ export const NewsProvider = ({ children }) => {
     const notification = { id, message, type };
     setNotifications(prev => [...prev, notification]);
     
-    // Remove a notificação após 3 segundos
     setTimeout(() => {
       removeNotification(id);
     }, 3000);
