@@ -197,4 +197,22 @@ const WithdrawalModal = ({ onClose }) => {
           </button>
           <button
             onClick={handleWithdrawal}
-            disabled={loading || !amount || parseInt(
+            disabled={loading || !amount || parseInt(amount) < minWithdrawal || !walletAddress.trim()}
+            className="flex-1 bg-yellow-600 hover:bg-yellow-700 disabled:bg-gray-600 disabled:cursor-not-allowed text-white py-3 rounded-lg transition-colors font-semibold"
+          >
+            {loading ? (
+              <div className="flex items-center justify-center gap-2">
+                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                Processando...
+              </div>
+            ) : (
+              '💸 Confirmar Resgate'
+            )}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default WithdrawalModal;
