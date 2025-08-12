@@ -1,5 +1,6 @@
+// src/components/news/NewsPage.jsx
 import { motion } from 'framer-motion';
-import { useNewsContext } from '../../context/NewsContext';
+import { useNews } from '../../context/NewsContext'; // Changed from useNewsContext to useNews
 import { useRedditNews } from '../../hooks/useRedditNews';
 import { useSolanaWallet } from '../../hooks/useSolanaWallet';
 import NewsCard from './NewsCard';
@@ -9,7 +10,7 @@ import PointsDisplay from './PointsDisplay';
 
 function NewsPage() {
   const { news, loading, error } = useRedditNews();
-  const { selectedNews, showAdModal } = useNewsContext();
+  const { selectedNews, showAdModal } = useNews(); // Changed from useNewsContext to useNews
   const { publicKey, connectWallet } = useSolanaWallet();
 
   return (
