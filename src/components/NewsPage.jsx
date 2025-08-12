@@ -1,7 +1,7 @@
 // src/components/news/NewsPage.jsx
 import React, { useState, useEffect } from 'react';
 import { useRedditNews } from '../../hooks/useRedditNews';
-import { useNews } from '../../context/NewsContext';
+import { useNews } from '../../context/NewsContext'; // usa o hook correto (useNews)
 import NewsCard from './NewsCard';
 import NewsModal from './NewsModal';
 import AdModal from './AdModal';
@@ -11,7 +11,7 @@ import NotificationToast from '../common/NotificationToast';
 
 const NewsPage = () => {
   const { news, loading, error, refreshNews } = useRedditNews();
-  const { user, notifications } = useNews();
+  const { user, notifications } = useNews(); // usa useNews aqui
   const [selectedNews, setSelectedNews] = useState(null);
   const [showAdModal, setShowAdModal] = useState(false);
   const [showDashboard, setShowDashboard] = useState(false);
@@ -37,7 +37,6 @@ const NewsPage = () => {
   const filteredAndSortedNews = React.useMemo(() => {
     let filtered = news;
 
-    // Aplicar filtros
     if (filter !== 'all') {
       filtered = news.filter(item => {
         const title = item.title.toLowerCase();
@@ -56,7 +55,6 @@ const NewsPage = () => {
       });
     }
 
-    // Aplicar ordenação
     return filtered.sort((a, b) => {
       switch (sortBy) {
         case 'popular':
@@ -105,7 +103,6 @@ const NewsPage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 pt-20">
       <div className="container mx-auto px-4 py-8">
-        {/* Header da página */}
         <div className="text-center mb-8">
           <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-4">
             Notícias LoL
@@ -115,10 +112,8 @@ const NewsPage = () => {
           </p>
         </div>
 
-        {/* Barra de ferramentas */}
         <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
           <div className="flex items-center gap-4">
-            {/* Filtros */}
             <select 
               value={filter}
               onChange={(e) => setFilter(e.target.value)}
@@ -131,7 +126,6 @@ const NewsPage = () => {
               <option value="esports">Esports</option>
             </select>
 
-            {/* Ordenação */}
             <select 
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
@@ -144,7 +138,6 @@ const NewsPage = () => {
           </div>
 
           <div className="flex items-center gap-4">
-            {/* Botão para assistir anúncio */}
             <button
               onClick={handleShowAd}
               className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition-colors flex items-center gap-2"
@@ -153,10 +146,8 @@ const NewsPage = () => {
               Assistir Anúncio (+10 BIGFOOT)
             </button>
 
-            {/* Display de pontos */}
             {user && <PointsDisplay />}
 
-            {/* Dashboard do usuário */}
             {user && (
               <button
                 onClick={() => setShowDashboard(true)}
@@ -168,7 +159,6 @@ const NewsPage = () => {
           </div>
         </div>
 
-        {/* Lista de notícias */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredAndSortedNews.map((newsItem) => (
             <NewsCard
@@ -186,7 +176,6 @@ const NewsPage = () => {
           </div>
         )}
 
-        {/* Botão de recarregar */}
         <div className="text-center mt-8">
           <button
             onClick={refreshNews}
@@ -197,7 +186,6 @@ const NewsPage = () => {
         </div>
       </div>
 
-      {/* Modais */}
       {selectedNews && (
         <NewsModal 
           news={selectedNews} 
@@ -217,7 +205,6 @@ const NewsPage = () => {
         />
       )}
 
-      {/* Notificações */}
       <div className="fixed bottom-4 right-4 space-y-2 z-50">
         {notifications.map((notification) => (
           <NotificationToast
